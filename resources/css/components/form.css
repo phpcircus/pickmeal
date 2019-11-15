@@ -15,7 +15,7 @@
   }
 
   &::placeholder {
-    @apply .text-gray-700 .opacity-100;
+    @apply .text-gray-600 .opacity-75;
   }
 }
 

@@ -14,7 +14,7 @@
             </dropdown>
             <input class="relative w-full px-6 py-3 rounded-r" autocomplete="off" type="text" name="search" placeholder="Search…" :value="value" @input="$emit('input', $event.target.value)">
         </div>
-        <button class="ml-3 text-sm text-gray-700 hover:text-gray-800 focus:text-blue-500" type="button" @click="$emit('reset')">Reset</button>
+        <button class="ml-3 text-sm text-gray-700 hover:text-gray-800 focus:text-green-500" type="button" @click="$emit('reset')">Reset</button>
     </div>
 </template>
 

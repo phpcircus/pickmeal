@@ -1,8 +1,8 @@
 <template>
     <blank-layout>
-        <div class="px-6 bg-blue-800 min-h-screen flex justify-center pt-32">
+        <div class="px-6 bg-green-700 min-h-screen flex justify-center pt-32">
             <div class="w-full max-w-sm">
-                <logo class="block mx-auto w-full max-w-xs fill-white" height="50" />
+                <logo-on-light class="block mx-auto w-full max-w-xs fill-white" height="50" />
                 <form class="mt-8 bg-white rounded-lg shadow-lg overflow-hidden" @submit.prevent="submit">
                     <div class="px-10 py-12">
                         <h1 class="text-center font-bold text-2xl">Choose a new password</h1>
@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import Logo from '@/Shared/Logo';
 import TextInput from '@/Shared/TextInput';
 import BlankLayout from '@/Shared/BlankLayout';
+import LogoOnLight from '@/Shared/LogoOnLight';
 import LoadingButton from '@/Shared/LoadingButton';
 
 export default {

@@ -70,7 +70,7 @@ class Checkbox {
 
     buildInputElement (checked) {
         this.input = document.createElement('input');
-        this.input.classList.add('form-checkbox', 'text-blue-600');
+        this.input.classList.add('form-checkbox', 'text-green-600');
         this.input.type = 'checkbox';
 
         if (checked) {
