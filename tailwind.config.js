@@ -18,6 +18,15 @@ module.exports = {
             'blue-700': theme('colors.blue.700'),
             'blue-800': theme('colors.blue.800'),
             'blue-900': theme('colors.blue.900'),
+            'green-100': theme('colors.green.100'),
+            'green-200': theme('colors.green.200'),
+            'green-300': theme('colors.green.300'),
+            'green-400': theme('colors.green.400'),
+            'green-500': theme('colors.green.500'),
+            'green-600': theme('colors.green.600'),
+            'green-700': theme('colors.green.700'),
+            'green-800': theme('colors.green.800'),
+            'green-900': theme('colors.green.900'),
             'gray-100': theme('colors.gray.100'),
             'gray-200': theme('colors.gray.200'),
             'gray-300': theme('colors.gray.300'),
@@ -77,6 +86,12 @@ module.exports = {
                     'Helvetica Neue',
                     'sans-serif',
                 ],
+                'damion': [
+                    'damionregular',
+                ],
+                'ptsans': [
+                    'pt_sans',
+                ],
             },
             spacing: {
               '7': '1.75rem',
@@ -125,5 +140,6 @@ module.exports = {
                 });
             });
         },
+        require('@tailwindcss/custom-forms'),
     ],
 }

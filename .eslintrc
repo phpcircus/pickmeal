@@ -35,8 +35,14 @@
         "valid-typeof": "warn",
         "vue/no-v-html": 0,
         "vue/html-indent": ["error", 4],
-        "vue/max-attributes-per-line": false,
-        "vue/require-default-prop": false,
-        "vue/singleline-html-element-content-newline": false
+        "vue/max-attributes-per-line": ["error", {
+            "singleline": 1,
+            "multiline": {
+            "max": 1,
+            "allowFirstLine": true
+            }
+        }],
+        "vue/require-default-prop": 0,
+        "vue/singleline-html-element-content-newline": 0
     }
 }

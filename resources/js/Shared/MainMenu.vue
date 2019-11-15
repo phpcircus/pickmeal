@@ -2,18 +2,18 @@
     <div :class="display">
         <div :class="margin">
             <inertia-link class="flex items-center group py-3" :href="route('dashboard')">
-                <icon-base classes="mr-2" :dynamic-classes="isPath('dashboard') ? 'fill-white' : 'fill-blue-300 group-hover:fill-white'">
+                <icon-base classes="mr-2" :dynamic-classes="isPath('dashboard') ? 'fill-green-500' : 'fill-green-800 group-hover:fill-green-500'">
                     <home />
                 </icon-base>
-                <div :class="isPath('dashboard') ? 'text-white' : 'text-blue-200 group-hover:text-white'" class="text-xl">Dashboard</div>
+                <div :class="isPath('dashboard') ? 'text-green-500' : 'text-green-700 group-hover:text-green-500'" class="text-xl">Dashboard</div>
             </inertia-link>
         </div>
         <div>
             <inertia-link class="flex items-center py-3 group" :href="route('about')">
-                <icon-base classes="mr-2" :dynamic-classes="isPath('about') ? 'fill-white' : 'fill-blue-300 group-hover:fill-white'">
+                <icon-base classes="mr-2" :dynamic-classes="isPath('about') ? 'fill-green-500' : 'fill-green-800 group-hover:fill-green-500'">
                     <user />
                 </icon-base>
-                <div :class="isPath('about') ? 'text-white' : 'text-blue-200 group-hover:text-white'" class="text-xl">About Me</div>
+                <div :class="isPath('about') ? 'text-green-500' : 'text-green-700 group-hover:text-green-500'" class="text-xl">About Us</div>
             </inertia-link>
         </div>
     </div>

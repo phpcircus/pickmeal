@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex flex-col bg-blue-900 w-full text-center py-4">
+        <div class="flex flex-col bg-green-800 w-full text-center py-4">
             <h1 class="text-white text-3xl uppercase mb-4">{{ title }}</h1>
             <p class="text-white text-sm">{{ text }}</p>
         </div>
@@ -37,7 +37,7 @@ export default {
                 return 'text-green-500'
             }
             if (button.type === 'info') {
-                return 'text-blue-500'
+                return 'text-green-500'
             }
             if (button.type === 'close') {
                 return 'text-gray-500'

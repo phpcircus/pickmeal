@@ -179,7 +179,7 @@ return [
         App\Providers\DateServiceProvider::class,
         App\Providers\DatabaseServiceProvider::class,
         App\Providers\UrlServiceProvider::class,
-        App\Providers\DebugbarServiceProvider::class,
+        // App\Providers\DebugbarServiceProvider::class,
         App\Providers\IdeHelperServiceProvider::class,
         App\Providers\HereServiceProvider::class,
     ],

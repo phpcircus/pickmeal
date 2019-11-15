@@ -6,7 +6,7 @@
             </tr>
             <tr v-for="item in data" :key="item.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
                 <td v-for="field in headerFields" :key="field.name" class="border-t">
-                    <inertia-link class="px-6 py-4 flex items-center focus:text-blue-500" :href="route(`${entityName}.${rowAction}`, item.id)">
+                    <inertia-link class="px-6 py-4 flex items-center focus:text-green-500" :href="route(`${entityName}.${rowAction}`, item.id)">
                         {{ item[field.name] }}
                         <icon v-if="item.deleted_at" name="trash" class="flex-no-shrink w-3 h-3 fill-gray-500 ml-2" />
                     </inertia-link>

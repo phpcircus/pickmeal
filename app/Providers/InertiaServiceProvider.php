@@ -104,6 +104,9 @@ class InertiaServiceProvider extends ServiceProvider
                     'class' => $info ? $info['class'] : null,
                 ];
             },
+            'autocomplete' => static function () {
+                return Session::get('autocomplete') ?? [];
+            },
         ]);
     }
 
