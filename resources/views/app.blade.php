@@ -11,7 +11,7 @@
         @routes
     </head>
 
-    <body class="font-ptsans leading-none text-gray-900 antialiased">
+    <body class="bg-yellow-200 h-screen font-ptsans leading-none text-gray-900 antialiased">
         <div id="app" data-page="{{ json_encode($page) }}" />
     </body>
 

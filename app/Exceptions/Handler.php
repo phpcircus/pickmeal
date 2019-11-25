@@ -3,8 +3,9 @@
 namespace App\Exceptions;
 
 use Exception;
-use Inertia\Inertia;
 use Illuminate\Auth\Access\AuthorizationException;
+use App\Services\Meal\Exceptions\InvalidLocationId;
+use App\Services\Meal\Exceptions\InvalidCustomAddress;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -50,10 +51,28 @@ class Handler extends ExceptionHandler
     {
         $response = parent::render($request, $exception);
 
-        if ($request->header('X-Inertia') && in_array($response->status(), [500, 503, 404, 403])) {
-            flash('warning', 'Something went wrong.');
+        if ($exception instanceof InvalidCustomAddress) {
+            flash('warning', 'Custom address is invalid or incomplete. Please try again.');
 
-            return Inertia::render('Dashboard/Index');
+            return redirect()->route('home');
+        }
+
+        if ($exception instanceof InvalidLocationId) {
+            flash('warning', 'Unable to determine current location. Please try again.');
+            dump('hello');
+            return redirect()->route('home');
+        }
+
+        if ($request->header('X-Inertia')) {
+            if (in_array($response->status(), [500, 503, 404, 403])) {
+                flash('warning', 'Something went wrong.');
+            }
+
+            if ($this->csrfExpired($response)) {
+                flash('info', "The session expired so we've refreshed the page. You may now try again!");
+            }
+
+            return redirect()->route('home');
         }
 
         if ($exception instanceof AuthorizationException) {
@@ -63,9 +82,19 @@ class Handler extends ExceptionHandler
 
             flash('warning', 'Something went wrong.');
 
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
 
         return $response;
+    }
+
+    /**
+     * Check if the csrf token has expired.
+     *
+     * @param  \Symfony\Component\HttpFoundation\Response  $response
+     */
+    private function csrfExpired($response): bool
+    {
+        return $response->status() === 419;
     }
 }

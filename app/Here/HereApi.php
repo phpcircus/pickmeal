@@ -13,6 +13,8 @@ class HereApi
 
     const BROWSE_PATH = 'browse';
 
+    const LOOKUP_PATH = 'places';
+
     const AUTOCOMPLETE_URL = 'http://autocomplete.geocoder.api.here.com/6.2/suggest.json';
 
     const GEOCODE_URL = 'http://geocoder.api.here.com/6.2/geocode.json';
@@ -54,6 +56,8 @@ class HereApi
     /**
      * Search for places in the given radius for the given location, using the given options.
      *
+     * @param  array  $options
+     *
      * @return \Illuminate\Support\Collection
      */
     public function search(array $options)
@@ -63,6 +67,18 @@ class HereApi
         $response = $this->makeRequest(self::PLACES_BASE_URL.self::BROWSE_PATH, $options);
 
         return $this->convertToCollection($response, 'results.items');
+    }
+
+    /**
+     * Lookup a place given the place id from a search request.
+     *
+     * @param  string  $id
+     */
+    public function lookup(string $id): array
+    {
+        $this->checkCredentials();
+
+        return $this->makeRequest(self::PLACES_BASE_URL.self::LOOKUP_PATH.'/'.$id);
     }
 
     /**
@@ -84,7 +100,7 @@ class HereApi
     /**
      * Geocode a location based on the given locationId.
      */
-    public function geocodeFromLocationid(string $locationId): array
+    public function geocodeFromLocationId(string $locationId): array
     {
         $this->checkCredentials();
 
@@ -94,7 +110,27 @@ class HereApi
             'gen' => 9,
         ]);
 
-        return $response['response']['view'][0]['result'][0]['location']['displayPosition'];
+        return $response['response']['view'][0]['result'][0]['location']['navigationPosition'][0];
+    }
+
+    /**
+     * Geocode a location based on the given locationAddress.
+     */
+    public function geocodeFromLocationAddress(string $locationAddress): array
+    {
+        $this->checkCredentials();
+
+        $response = $this->makeRequest(self::GEOCODE_URL, [
+            'searchtext' => $locationAddress,
+            'jsonattributes' => 1,
+            'gen' => 9,
+        ]);
+
+        if (! count($response['response']['view']) > 0) {
+            return [];
+        }
+
+        return $response['response']['view'][0]['result'][0]['location']['navigationPosition'][0];
     }
 
     /**
@@ -102,7 +138,7 @@ class HereApi
      *
      * @return mixed|string
      */
-    private function makeRequest(string $uri, array $params, string $method = 'GET')
+    private function makeRequest(string $uri, array $params = [], string $method = 'GET')
     {
         $options = $this->getOptions($params);
 

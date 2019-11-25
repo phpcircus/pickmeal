@@ -14,6 +14,6 @@ class IndexResponder extends Responder
      */
     public function respond()
     {
-        return Inertia::render('Dashboard/Index');
+        return Inertia::render('Home/Index');
     }
 }

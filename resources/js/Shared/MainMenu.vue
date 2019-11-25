@@ -1,34 +1,38 @@
 <template>
     <div :class="display">
         <div :class="margin">
-            <inertia-link class="flex items-center group py-3" :href="route('dashboard')">
-                <icon-base classes="mr-2" :dynamic-classes="isPath('dashboard') ? 'fill-green-500' : 'fill-green-800 group-hover:fill-green-500'">
+            <inertia-link class="flex items-center group py-3" :href="route('home')">
+                <icon-base classes="mr-2" :dynamic-classes="isPath('') ? 'fill-green-500' : 'fill-green-800 group-hover:fill-green-500'">
                     <home />
                 </icon-base>
-                <div :class="isPath('dashboard') ? 'text-green-500' : 'text-green-700 group-hover:text-green-500'" class="text-xl">Dashboard</div>
+                <div class="text-xl" :class="isPath('') ? 'text-green-500' : 'text-green-700 group-hover:text-green-500'">
+                    Home
+                </div>
             </inertia-link>
         </div>
         <div>
             <inertia-link class="flex items-center py-3 group" :href="route('about')">
                 <icon-base classes="mr-2" :dynamic-classes="isPath('about') ? 'fill-green-500' : 'fill-green-800 group-hover:fill-green-500'">
-                    <user />
+                    <store-front />
                 </icon-base>
-                <div :class="isPath('about') ? 'text-green-500' : 'text-green-700 group-hover:text-green-500'" class="text-xl">About Us</div>
+                <div class="text-xl" :class="isPath('about') ? 'text-green-500' : 'text-green-700 group-hover:text-green-500'">
+                    About MealShot
+                </div>
             </inertia-link>
         </div>
     </div>
 </template>
 
 <script>
-import User from '@/Shared/Icons/User';
 import Home from '@/Shared/Icons/Home';
 import IconBase from '@/Shared/IconBase';
+import StoreFront from '@/Shared/Icons/StoreFront';
 
 export default {
     components: {
-        User,
         Home,
         IconBase,
+        StoreFront,
     },
     props: {
         display: {

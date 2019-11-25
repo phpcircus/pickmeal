@@ -92,6 +92,9 @@ module.exports = {
                 'ptsans': [
                     'pt_sans',
                 ],
+                'sigmar': [
+                    'sigmar_oneregular',
+                ],
             },
             spacing: {
               '7': '1.75rem',

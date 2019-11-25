@@ -28,6 +28,8 @@ class InertiaServiceProvider extends ServiceProvider
         $this->shareAppData();
         $this->shareFlashMessages();
         $this->shareErrors();
+        $this->shareRestaurants();
+        $this->shareShowRestaurantModal();
     }
 
     /**
@@ -126,6 +128,30 @@ class InertiaServiceProvider extends ServiceProvider
                 }
 
                 return (object) [];
+            },
+        ]);
+    }
+
+    /**
+     * Share the restaurant results.
+     */
+    private function shareRestaurants(): void
+    {
+        Inertia::share([
+            'restaurants' => static function () {
+                return Session::get('restaurants') ?? [];
+            },
+        ]);
+    }
+
+    /**
+     * Share whether or not to show the restaurant results modal.
+     */
+    private function shareShowRestaurantModal(): void
+    {
+        Inertia::share([
+            'show_restaurant_modal' => static function () {
+                return Session::get('show_restaurant_modal') ?? false;
             },
         ]);
     }

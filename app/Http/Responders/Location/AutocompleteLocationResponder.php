@@ -15,6 +15,6 @@ class AutocompleteLocationResponder extends Responder
     {
         $this->request->session()->flash('autocomplete', $this->payload);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('home');
     }
 }

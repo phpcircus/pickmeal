@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label v-if="label" class="form-label" :for="id">{{ label }}:</label>
+        <label v-if="label" class="form-label" :for="id" :class="labelClass">{{ label }}:</label>
         <input v-if="mask" :id="id" ref="input" v-mask="'#'" v-bind="$attrs" :step="step" class="form-input" :class="{ error: errors.length }" :type="type" :value="value" @input="$emit('input', $event.target.value)">
         <input v-else :id="id" ref="input" v-bind="$attrs" :step="step" class="form-input" :class="{ error: errors.length }" :type="type" :value="value" @input="$emit('input', $event.target.value)">
         <div v-if="errors.length" class="form-error">{{ errors[0] }}</div>
@@ -37,6 +37,10 @@ export default {
         step: {
             type: Number,
             default: () => 1,
+        },
+        labelClass: {
+            type: String,
+            default: () => '',
         },
     },
     methods: {

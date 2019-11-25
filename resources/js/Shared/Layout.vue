@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="flex flex-col min-h-screen">
         <modal />
         <flash-message />
 
@@ -10,7 +10,7 @@
             <!-- TOP WHITE BAR -->
             <div class="flex justify-between items-center w-full px-4 py-6 bg-white">
                 <inertia-link class="mt-1"
-                              :href="route('dashboard')"
+                              :href="route('home')"
                 >
                     <logo-on-light position="left" />
                 </inertia-link>
@@ -18,39 +18,10 @@
                     <main-menu display="flex flex-row" />
                 </div>
             </div>
-
-            <!-- TOP WHITE BAR -->
-            <!-- <div class="flex justify-between items-center w-full text-sm md:text-base bg-white border-b shadow h-16 p-4 py-8">
-                <div class="mt-1 mr-4">&nbsp;</div>
-                <dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
-                    <div slot="trigger" class="flex items-center cursor-pointer select-none group">
-                        <div class="flex text-green-700 group-hover:text-green-500 focus:text-green-500 mr-1 whitespace-no-wrap">
-                            <icon-base icon-function="user" :width="14" :height="14" icon-fill="fill-green-700" classes="mr-2 group-hover:fill-green-500">
-                                <user />
-                            </icon-base>
-                            <span class="inline">{{ $page.auth.user.name }}</span>
-                            <icon-base icon-function="cheveron-down" icon-fill="fill-green-700" classes="ml-2 group-hover:fill-green-500">
-                                <cheveron-down />
-                            </icon-base>
-                        </div>
-                    </div>
-                    <div slot="dropdown" class="mt-2 shadow-lg bg-white rounded text-sm">
-                        <user-menu />
-                    </div>
-                </dropdown>
-                <div v-else class="flex text-green-700 group-hover:text-green-500 focus:text-green-500 mr-1 whitespace-no-wrap">
-                    <inertia-link class="flex group" :href="route('login.form')">
-                        <icon-base icon-function="login" :width="14" :height="14" icon-fill="fill-green-700" classes="mr-2 group-hover:fill-green-500">
-                            <lock-closed />
-                        </icon-base>
-                        <span class="inline-block text-green-700 group-hover:text-green-500">Login</span>
-                    </inertia-link>
-                </div>
-            </div> -->
         </div>
 
         <!-- Main Content -->
-        <div class="flex flex-grow w-full relative bg-yellow-200">
+        <div class="flex flex-grow w-full relative">
             <div class="px-4 py-8 lg:py-12 w-full">
                 <breadcrumbs />
                 <slot />
@@ -58,7 +29,7 @@
         </div>
 
         <!-- Site Footer -->
-        <site-footer />
+        <site-footer class="self-end" />
     </div>
 </template>
 
