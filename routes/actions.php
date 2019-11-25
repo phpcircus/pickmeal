@@ -1,8 +1,8 @@
 <?php
 
 // Home
-Route::redirect('/', '/dashboard');
-Route::get('/dashboard', Home\Index::class)->name('dashboard');
+Route::redirect('/', '/home');
+Route::get('/home', Home\Index::class)->name('home');
 
 // About
 Route::get('about', About\Index::class)->name('about');
@@ -54,3 +54,6 @@ Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], 
 
 // Address
 Route::post('location/autocomplete', Location\AutocompleteLocation::class)->name('location.autocomplete');
+
+// Pick
+Route::post('pick', Meal\PickMeal::class)->name('pick');

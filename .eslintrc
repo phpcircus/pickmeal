@@ -36,10 +36,10 @@
         "vue/no-v-html": 0,
         "vue/html-indent": ["error", 4],
         "vue/max-attributes-per-line": ["error", {
-            "singleline": 1,
+            "singleline": 3,
             "multiline": {
-            "max": 1,
-            "allowFirstLine": true
+                "max": 3,
+                "allowFirstLine": true
             }
         }],
         "vue/require-default-prop": 0,

@@ -86,7 +86,7 @@ class ProcessLogin extends Action
         $this->clearLoginAttempts($request);
 
         return $this->authenticated($request, $this->guard()->user())
-            ?: redirect()->intended(route('dashboard'));
+            ?: redirect()->intended(route('home'));
     }
 
     /**
@@ -101,7 +101,7 @@ class ProcessLogin extends Action
     {
         flash('success', 'Logged in!');
 
-        return redirect()->route('dashboard');
+        return redirect()->route('home');
     }
 
     /**

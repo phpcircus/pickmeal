@@ -5,6 +5,8 @@ export default {
         Vue.prototype.$dispatcher = Dispatcher;
         Vue.prototype.$listen = (event, callback) => Dispatcher.$on(event, callback);
 
-        Vue.prototype.$dispatch = (event) => Dispatcher.$emit(event);
+        Vue.prototype.$dispatch = (event, data = null) => {
+            Dispatcher.$emit(event, data)
+        };
     },
 }
