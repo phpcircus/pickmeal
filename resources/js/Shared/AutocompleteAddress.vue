@@ -3,7 +3,7 @@
         <text-input v-model="input" :errors="getErrors(field)" class="w-3/4 mt-px mr-4 mb-4"
                     placeholder="123 Easy St. Beverly Hills, CA 90210"
                     :label="label"
-                    label-class="text-base text-green-800"
+                    label-class="text-base text-teal-800"
                     @input="handleInput()"
         />
         <div v-if="$page.autocomplete.length > 0" class="flex flex-col bg-white border border-gray-500 absolute top-16 w-3/4 p-2 mb-4 z-20">

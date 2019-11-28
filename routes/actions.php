@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], 
 });
 
 // Address
-Route::post('location/autocomplete', Location\AutocompleteLocation::class)->name('location.autocomplete');
+Route::post('location/autocomplete', Location\AutocompleteLocation::class)->middleware(['throttle:20,1'])->name('location.autocomplete');
 
 // Pick
-Route::post('pick', Meal\PickMeal::class)->name('pick');
+Route::post('pick', Meal\PickMeal::class)->middleware(['throttle:10,1'])->name('pick');

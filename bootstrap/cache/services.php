@@ -53,6 +53,7 @@
     49 => 'App\\Providers\\UrlServiceProvider',
     50 => 'App\\Providers\\IdeHelperServiceProvider',
     51 => 'App\\Providers\\HereServiceProvider',
+    52 => 'App\\Providers\\GeocodioServiceProvider',
   ),
   'eager' => 
   array (
@@ -94,6 +95,7 @@
     35 => 'App\\Providers\\UrlServiceProvider',
     36 => 'App\\Providers\\IdeHelperServiceProvider',
     37 => 'App\\Providers\\HereServiceProvider',
+    38 => 'App\\Providers\\GeocodioServiceProvider',
   ),
   'deferred' => 
   array (

@@ -1,8 +1,8 @@
 <template>
     <layout title="Create User">
         <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-blue-light hover:text-green-600" :href="route('users.list')">Users</inertia-link>
-            <span class="text-green-300 font-medium">/</span> Create
+            <inertia-link class="text-blue-light hover:text-teal-600" :href="route('users.list')">Users</inertia-link>
+            <span class="text-teal-300 font-medium">/</span> Create
         </h1>
         <div class="bg-white rounded shadow overflow-hidden max-w-lg">
             <form @submit.prevent="submit">

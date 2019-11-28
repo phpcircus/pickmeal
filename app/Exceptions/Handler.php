@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Services\Meal\Exceptions\InvalidLocationId;
 use App\Services\Meal\Exceptions\InvalidCustomAddress;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -59,7 +60,11 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof InvalidLocationId) {
             flash('warning', 'Unable to determine current location. Please try again.');
-            dump('hello');
+            return redirect()->route('home');
+        }
+
+        if ($exception instanceof ThrottleRequestsException) {
+            flash('warning', 'You have exceeded the number of allowed requests. Please wait 1 minute.');
             return redirect()->route('home');
         }
 

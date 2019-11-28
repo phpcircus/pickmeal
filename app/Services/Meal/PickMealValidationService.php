@@ -12,12 +12,14 @@ class PickMealValidationService extends ValidationService
      */
     public function rules(): array
     {
+        $categories = implode(',', config('here.categories'));;
+
         return [
             'useLocation' => ['required', 'string', 'in:custom,current'],
-            'currentLocation' => ['required_if:useLocation,current', 'string', 'nullable'],
+            'currentLocation' => ['required_if:useLocation,current', 'string', 'nullable', 'regex:/^\-?\d+(\.\d+)?,\s*+\-?\d+(\.\d+)?(;\-?\d+(\.\d+)?,\s*+\-?\d+(\.\d+)?)*$/'],
             'searchRadius' => ['required','int', 'in:2,5,10,15,20,25'],
-            'price' => ['required', 'int', 'in:1,2,3'],
-            'numberOfResults' => ['required', 'int', 'in:1,2,3,4,5'],
+            'level' => ['required', 'string', "in:{$categories}"],
+            'maxResults' => ['required', 'int', 'in:1,2,3,4,5'],
         ];
     }
 
@@ -28,7 +30,7 @@ class PickMealValidationService extends ValidationService
     {
         return [
             'customLocationId' => ['trim', 'strip_tags'],
-            'currentLocation' => ['trim', 'strip_tags'],
+            'customLocationAddress' => ['trim', 'strip_tags'],
         ];
     }
 
@@ -42,6 +44,7 @@ class PickMealValidationService extends ValidationService
             'customLocationId.required' => 'Custom location not given or not found. You must provide a valid address.',
             'currentLocation.required_if' => 'Current location not found. If your browser prompts you for permission, be sure to click "Allow".',
             'currentLocation.required' => 'Current location not found. If your browser prompts you for permission, be sure to click "Allow".',
+            'currentLocation.regex' => 'Current location coordinates are not in the correct format.',
         ];
     }
 

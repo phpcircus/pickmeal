@@ -12,124 +12,118 @@
                 </div>
                 <div :class="windowWidth > 1024 ? 'w-2/3' : 'w-full'">
                     <div class="flex flex-col w-full">
-                        <h1 class="font-sigmar subpixel-antialiased text-6xl font-bold text-green-900 mx-auto mb-8">
-                            Let Us Pick Your Meal!
-                        </h1>
-                        <div class="flex mb-4 w-full">
-                            <label class="inline-flex items-center mr-4">
-                                <input v-model="useLocation"
-                                       type="radio"
-                                       class="form-radio text-green-800"
-                                       value="custom"
-                                       :checked="useLocation === 'custom'"
-                                >
-                                <span class="text-green-800 font-semibold ml-1">Use custom location</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input v-model="useLocation"
-                                       type="radio"
-                                       class="form-radio text-green-800"
-                                       value="current"
-                                       :checked="useLocation === 'current'"
-                                >
-                                <span class="text-green-800 font-semibold ml-1">Use current location</span>
-                            </label>
-                        </div>
-                        <p v-if="getLocationErrors() && useLocation === 'custom'" class="w-full md:w-1/2 text-red-500 text-sm font-semibold px-4 py-2 bg-red-200 text-red-800 rounded mb-6 leading-snug" v-html="getLocationErrors()" />
-                        <autocomplete-address v-if="useLocation === 'custom'" label="Enter an address and search this area" @input="setCustomAddress" />
-                        <p class="text-xl font-bold uppercase text-green-800 mt-8 mb-4">
-                            Price Level
-                        </p>
-                        <div class="flex flex-col">
-                            <div class="flex">
+                        <div class="bg-teal-200 p-6 rounded-lg">
+                            <h1 class="font-sigmar subpixel-antialiased text-5xl font-bold text-teal-900 mb-8">
+                                Let Us Pick Your Meal!
+                            </h1>
+                            <div class="flex mb-4 w-full">
                                 <label class="inline-flex items-center mr-4">
-                                    <input v-model="price"
+                                    <input v-model="useLocation"
                                            type="radio"
-                                           class="form-radio text-green-800"
-                                           :value="1"
-                                           :checked="price === 1"
+                                           class="form-radio text-teal-800"
+                                           value="custom"
+                                           :checked="useLocation === 'custom'"
                                     >
-                                    <span class="text-green-800 font-semibold ml-1">Fast Food</span>
+                                    <span class="text-teal-800 font-semibold ml-1">Use custom location</span>
                                 </label>
-                                <label class="inline-flex items-center mr-4">
-                                    <input v-model="price"
-                                           type="radio"
-                                           class="form-radio text-green-800"
-                                           :value="2"
-                                           :checked="price === 2"
+                                <label class="inline-flex items-center">
+                                    <input v-model="useLocation" type="radio" class="form-radio text-teal-800"
+                                           value="current"
+                                           :checked="useLocation === 'current'"
                                     >
-                                    <span class="text-green-800 font-semibold ml-1">Casual</span>
-                                </label>
-                                <label class="inline-flex items-center mr-4">
-                                    <input v-model="price"
-                                           type="radio"
-                                           class="form-radio text-green-800"
-                                           :value="3"
-                                           :checked="price === 3"
-                                    >
-                                    <span class="text-green-800 font-semibold ml-1">Fine Dining</span>
+                                    <span class="text-teal-800 font-semibold ml-1">Use current location</span>
                                 </label>
                             </div>
-                        </div>
-                        <p class="text-xl font-bold uppercase text-green-800 mt-8 mb-4">
-                            Search Radius
-                        </p>
-                        <div class="flex flex-col">
-                            <div class="flex">
-                                <select-input v-model="searchRadius" class="w-full lg:w-1/2" :errors="getErrors('searchRadius')">
-                                    <option :key="2" :value="2" :selected="searchRadius === 2">
-                                        2 Miles
-                                    </option>
-                                    <option :key="5" :value="5" :selected="searchRadius === 5">
-                                        5 Miles
-                                    </option>
-                                    <option :key="10" :value="10" :selected="searchRadius === 10">
-                                        10 Miles
-                                    </option>
-                                    <option :key="15" :value="15" :selected="searchRadius === 15">
-                                        15 Miles
-                                    </option>
-                                    <option :key="20" :value="20" :selected="searchRadius === 20">
-                                        20 Miles
-                                    </option>
-                                    <option :key="25" :value="25" :selected="searchRadius === 25">
-                                        25 Miles
-                                    </option>
-                                </select-input>
+                            <p v-if="getLocationErrors() && useLocation === 'custom'" class="w-full md:w-1/2 text-red-500 text-sm font-semibold px-4 py-2 bg-red-200 text-red-800 rounded mb-6 leading-snug" v-html="getLocationErrors()" />
+                            <autocomplete-address v-if="useLocation === 'custom'" label="Enter an address and search this area" @input="setCustomAddress" />
+                            <p class="text-xl font-bold uppercase text-teal-800 mt-8 mb-4">
+                                Meal Type
+                            </p>
+                            <div class="flex flex-col">
+                                <div class="flex">
+                                    <label class="inline-flex items-center mr-4">
+                                        <input v-model="level" type="radio" class="form-radio text-teal-800"
+                                               value="100-1000-0009"
+                                               :checked="level === '100-1000-0009'"
+                                        >
+                                        <span class="text-teal-800 font-semibold ml-1">Fast Food</span>
+                                    </label>
+                                    <label class="inline-flex items-center mr-4">
+                                        <input v-model="level" type="radio" class="form-radio text-teal-800"
+                                               value="100-1000-0001"
+                                               :checked="level === '100-1000-0001'"
+                                        >
+                                        <span class="text-teal-800 font-semibold ml-1">Casual</span>
+                                    </label>
+                                    <label class="inline-flex items-center mr-4">
+                                        <input v-model="level" type="radio" class="form-radio text-teal-800"
+                                               value="100-1000-0002"
+                                               :checked="level === '100-1000-0002'"
+                                        >
+                                        <span class="text-teal-800 font-semibold ml-1">Fine Dining</span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        <p class="text-xl font-bold uppercase text-green-800 mt-8 mb-4">
-                            Maximum number of results
-                        </p>
-                        <div class="flex flex-col">
-                            <div class="flex">
-                                <select-input v-model="numberOfResults" class="mb-6 w-full lg:w-1/2" :errors="getErrors('numberOfResults')">
-                                    <option :key="1" :value="1" :selected="numberOfResults === 1">
-                                        1
-                                    </option>
-                                    <option :key="2" :value="2" :selected="numberOfResults === 2">
-                                        2
-                                    </option>
-                                    <option :key="3" :value="3" :selected="numberOfResults === 3">
-                                        3
-                                    </option>
-                                    <option :key="4" :value="4" :selected="numberOfResults === 4">
-                                        4
-                                    </option>
-                                    <option :key="5" :value="5" :selected="numberOfResults === 5">
-                                        5
-                                    </option>
-                                </select-input>
+                            <p class="text-xl font-bold uppercase text-teal-800 mt-8 mb-4">
+                                Search Radius
+                            </p>
+                            <div class="flex flex-col">
+                                <div class="flex">
+                                    <select-input v-model="searchRadius" class="w-full lg:w-1/2" :errors="getErrors('searchRadius')">
+                                        <option :key="2" :value="2" :selected="searchRadius === 2">
+                                            2 Miles
+                                        </option>
+                                        <option :key="5" :value="5" :selected="searchRadius === 5">
+                                            5 Miles
+                                        </option>
+                                        <option :key="10" :value="10" :selected="searchRadius === 10">
+                                            10 Miles
+                                        </option>
+                                        <option :key="15" :value="15" :selected="searchRadius === 15">
+                                            15 Miles
+                                        </option>
+                                        <option :key="20" :value="20" :selected="searchRadius === 20">
+                                            20 Miles
+                                        </option>
+                                        <option :key="25" :value="25" :selected="searchRadius === 25">
+                                            25 Miles
+                                        </option>
+                                    </select-input>
+                                </div>
                             </div>
+                            <p class="text-xl font-bold uppercase text-teal-800 mt-8 mb-4">
+                                Maximum number of results
+                            </p>
+                            <div class="flex flex-col">
+                                <div class="flex">
+                                    <select-input v-model="maxResults" class="mb-6 w-full lg:w-1/2" :errors="getErrors('maxResults')">
+                                        <option :key="1" :value="1" :selected="maxResults === 1">
+                                            1
+                                        </option>
+                                        <option :key="2" :value="2" :selected="maxResults === 2">
+                                            2
+                                        </option>
+                                        <option :key="3" :value="3" :selected="maxResults === 3">
+                                            3
+                                        </option>
+                                        <option :key="4" :value="4" :selected="maxResults === 4">
+                                            4
+                                        </option>
+                                        <option :key="5" :value="5" :selected="maxResults === 5">
+                                            5
+                                        </option>
+                                    </select-input>
+                                </div>
+                            </div>
+                            <loading-button class="bttn bttn-4 btn-sep items-center h-60p w-260p group ml-auto shadow-md" type="button" :loading="pickingMeal"
+                                            @clicked="pickMeal()"
+                            >
+                                <icon-base icon-fill="fill-white" classes="mr-4 group-hover:fill-teal-100">
+                                    <food />
+                                </icon-base>
+                                Pick Meal!
+                            </loading-button>
                         </div>
-                        <loading-button class="bttn bttn-4 btn-sep items-center h-60p w-260p group ml-auto shadow-md" type="button" :loading="pickingMeal"
-                                        @clicked="pickMeal()"
-                        >
-                            <icon-base icon-fill="fill-white" classes="mr-4 group-hover:fill-green-100">
-                                <food />
-                            </icon-base>
-                            Pick Meal!
-                        </loading-button>
                     </div>
                 </div>
             </div>
@@ -163,13 +157,13 @@ export default {
             useLocation: 'custom',
             gettingLocation: false,
             searchRadius: 2,
-            price: 1,
+            level: '100-1000-0009',
             customLocationAddress: null,
             customLocationId: null,
             pickingMeal: false,
             initialCurrentLocation: null,
             currentLocation: null,
-            numberOfResults: 1,
+            maxResults: 1,
         }
     },
     watch: {
@@ -177,7 +171,7 @@ export default {
             handler (value) {
                 if (value == true) {
                     this.$modal.show('restaurantModal', {
-                        heading: `Your mealshot${this.numberOfResults > 1 ? 's' : ''} ${this.numberOfResults > 1 ? 'are' : 'is'}...`,
+                        heading: `Your mealshot${this.maxResults > 1 ? 's' : ''} ${this.maxResults > 1 ? 'are' : 'is'}...`,
                         restaurants: this.$page.restaurants,
                         buttons: [
                             {
@@ -228,8 +222,8 @@ export default {
                         customLocationAddress: this.customLocationAddress,
                         currentLocation: this.currentLocation,
                         searchRadius: this.searchRadius,
-                        price: this.price,
-                        numberOfResults: this.numberOfResults,
+                        level: this.level,
+                        maxResults: this.maxResults,
                     },
                 },{
                         preserveState: preserveState,

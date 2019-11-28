@@ -2,19 +2,18 @@
 
 namespace App\Services\Meal;
 
-use App\Here\HereApi;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use App\Location\Here\HereApi;
 use Illuminate\Support\Collection;
-use App\Services\Meal\Exceptions\InvalidLocationId;
-use App\Services\Meal\Exceptions\InvalidCustomAddress;
+use App\Services\Location\GeocodeService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class PickMealService
 {
     use SelfCallingService;
 
-    /** @var \App\Here\HereApi */
+    /** @var \App\Location\Here\HereApi */
     private $here;
 
     /** @var \App\Services\Meal\PickMealValidationService */
@@ -23,7 +22,7 @@ class PickMealService
     /**
      * Construct a new PickMealService.
      *
-     * @param  \App\Here\HereApi  $here
+     * @param  \App\Location\Here\HereApi  $here
      * @param  \App\Services\Meal\PickMealValidationService  $validator
      */
     public function __construct(HereApi $here, PickMealValidationService $validator)
@@ -35,163 +34,82 @@ class PickMealService
     /**
      * Handle the call to the service.
      *
-     * @param  array  $options
+     * @param  array  $parameters
      *
      * @return mixed
      */
-    public function run(array $options)
+    public function run(array $parameters)
     {
-        $this->validator->validate($options);
+        $this->validator->validate($parameters);
+        $searchResults = $this->here->search($this->normalizeParameters($parameters));
 
-        $optimizedOptions = $this->getOptimizedOptions($options);
-        $searchResults = $this->here->search($optimizedOptions);
-        $numberOfResults = $this->getNumberOfResults($options['numberOfResults'], $searchResults->count());
-
-        $restaurants = $this->optimizeResults($searchResults, $numberOfResults);
-
-        return $this->getResultData($restaurants);
+        return $this->getRestaurants($searchResults, $parameters['maxResults']);
     }
 
     /**
      * Get the optimized options for the search request.
      *
-     * @param  array  $options
+     * @param  array  $parameters
      */
-    private function getOptimizedOptions(array $options): array
+    private function normalizeParameters(array $parameters): array
     {
-        $coordinates = $this->getCoordinates(Arr::only($options, ['customLocationId', 'customLocationAddress', 'currentLocation']));
-        $radius = (int) round(($options['searchRadius'] * 1609.344), 0, PHP_ROUND_HALF_UP);
-        $category = $this->getCategory($options['price']);
+        $coordinates = GeocodeService::call(
+            'geocode',
+            Arr::only($parameters, ['customLocationId', 'customLocationAddress', 'currentLocation']),
+        );
+        $radius = $this->convertMilesToMeters($parameters['searchRadius']);
+        $category = $this->getCategory($parameters['level']);
 
         return [
             'in' => $coordinates.'; r='.$radius,
             'cat' => $category,
             'cs' => 'pds',
+            'size' => 50,
         ];
-    }
-
-    /**
-     * Get the location coordinates from the given location data.
-     *
-     * @param  array  $locationData
-     */
-    private function getCoordinates(array $locationData): string
-    {
-        if ($locationData['customLocationId']) {
-            return $this->getCustomCoordinatesFromLocationId($locationData['customLocationId']);
-        }
-        if ($locationData['customLocationAddress']) {
-            return $this->getCustomCoordinatesFromLocationAddress($locationData['customLocationAddress']);
-        }
-
-        return $this->getCurrentCoordinates($locationData);
-
-    }
-
-    /**
-     * Get custom coordinates from the location id.
-     *
-     * @param  string  $locationId
-     */
-    private function getCustomCoordinatesFromLocationId(string $locationId): string
-    {
-        $coords = $this->here->geocodeFromLocationid($locationId);
-        if (! $coords) {
-            throw InvalidLocationId::fromLocationId();
-        }
-
-        return implode(',', $coords);
-    }
-
-    /**
-     * Get custom coordinates from the location address.
-     *
-     * @param  string  $locationAddress
-     */
-    private function getCustomCoordinatesFromLocationAddress(string $locationAddress): string
-    {
-        $coords = $this->here->geocodeFromLocationAddress($locationAddress);
-        if (! $coords) {
-            throw InvalidCustomAddress::fromAddress($locationAddress);
-        }
-
-        return implode(',', $coords);
-    }
-
-    /**
-     * Get current coordinates from the location data.
-     *
-     * @param  array  $locationData
-     */
-    private function getCurrentCoordinates(array $locationData): string
-    {
-        return preg_replace('/\s/', '', $locationData['currentLocation']);
     }
 
     /**
      * Get the search category based on the given price level.
      *
-     * @param  int  $price
+     * @param  int  $level
      */
-    private function getCategory($price): string
+    private function getCategory($level): string
     {
-        $category = '';
-
-        if ($price === 1) {
-            $category = config('here.categories')['fast-food'];
-        } elseif ($price === 2) {
-            $category = config('here.categories')['casual'];
-        } elseif ($price === 3) {
-            $category = config('here.categories')['fine'];
-        }
-
-        return $category;
+        return collect(config('here.categories'))->filter(function ($value, $category) use ($level) {
+            return $value === $level;
+        })->first();
     }
 
     /**
-     * Determine how many random results will be returned.
+     * Convert the given miles to meters.
      *
-     * @param  int  $requested
-     * @param  int  $total
+     * @param  int  $meters
      */
-    private function getNumberOfResults(int $requested, int $total): int
+    private function convertMilesToMeters(int $meters): int
     {
-        if ($requested > $total) {
-            return $total;
-        }
-
-        return $requested;
-    }
-
-    /**
-     * Optimize the search results.
-     */
-    private function optimizeResults(Collection $results, int $numberOfResults): Collection
-    {
-        if ($results->count() > 0) {
-            $randomResults = $results->random($numberOfResults);
-
-            if ($randomResults instanceof Collection) {
-                return $randomResults;
-            }
-
-            if (is_array($randomResults)) {
-                return collect($randomResults);
-            }
-
-             return collect(Arr::wrap($randomResults));
-        }
-
-        return collect([]);
+        return (int) round(($meters * 1609.344), 0, PHP_ROUND_HALF_UP);
     }
 
     /**
      * Get the final results.
      *
-     * @param  \Illuminate\Support\Collection  $restaurants
+     * @param  \Illuminate\Support\Collection  $results
      */
-    private function getResultData(Collection $restaurants): Collection
+    private function getRestaurants(Collection $results, int $maxResults): Collection
     {
+        $restaurants = collect([]);
+
+        if ($results->count() > 0) {
+            $randomResults = $results->random($maxResults);
+            if ($randomResults instanceof Collection) {
+                $restaurants = $randomResults;
+            }elseif (is_array($randomResults)) {
+                $restaurants = collect($randomResults);
+            }else {
+                $restaurants = collect(Arr::wrap($randomResults));
+            }
+        }
+
         return $restaurants->map(function($restaurant) {
             return [
                 'title' => $restaurant['title'],

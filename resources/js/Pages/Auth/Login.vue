@@ -1,6 +1,6 @@
 <template>
     <blank-layout>
-        <div class="px-6 bg-green-700 min-h-screen flex justify-center pt-32">
+        <div class="px-6 bg-teal-700 min-h-screen flex justify-center pt-32">
             <div class="w-full max-w-sm">
                 <logo-on-light class="block mx-auto w-full max-w-xs fill-white" height="50" />
                 <form class="mt-8 bg-white rounded-lg shadow-lg overflow-hidden" @submit.prevent="submit">

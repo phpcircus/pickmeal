@@ -1,8 +1,8 @@
 <template>
     <layout :title="`Profile for ${form.name}`">
         <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-green-300 hover:text-green-600" :href="route('users.list')">Users</inertia-link>
-            <span class="text-green-300 font-medium">/</span>
+            <inertia-link class="text-teal-300 hover:text-teal-600" :href="route('users.list')">Users</inertia-link>
+            <span class="text-teal-300 font-medium">/</span>
             {{ form.name }}
         </h1>
         <trashed-message v-if="user.deleted_at" class="mb-6" @restore="restore">

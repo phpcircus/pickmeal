@@ -2,10 +2,10 @@
     <div class="w-full"
          :class="logoPosition"
     >
-        <h1 class="inline-block font-bold text-XL lg:text-3xl text-green-800 tracking-wider">
+        <h1 class="inline-block font-bold text-XL lg:text-3xl text-teal-800 tracking-wider">
             Meal
         </h1>
-        <span class="inline-block font-normal text-XL lg:text-3xl text-green-500">
+        <span class="inline-block font-normal text-XL lg:text-3xl text-teal-500">
             SHOT
         </span>
     </div>

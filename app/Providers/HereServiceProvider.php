@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Here\HereApi;
+use App\Location\Here\HereApi;
 use Illuminate\Support\ServiceProvider;
 
 class HereServiceProvider extends ServiceProvider
@@ -17,7 +17,7 @@ class HereServiceProvider extends ServiceProvider
             $appCode = config('here.app_code', '');
             $headers = array_merge(config('here.headers', []), []);
 
-            return new HereApi($appId, $appCode, $headers);
+            return new HereApi(['app_id' => $appId, 'app_code' => $appCode], $headers);
         });
     }
 }

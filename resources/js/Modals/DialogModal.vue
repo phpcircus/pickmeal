@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex flex-col bg-green-800 w-full text-center py-4">
+        <div class="flex flex-col bg-teal-800 w-full text-center py-4">
             <h1 class="text-white text-3xl uppercase mb-4">{{ title }}</h1>
             <p class="text-white text-sm">{{ text }}</p>
         </div>
@@ -34,10 +34,10 @@ export default {
                 return 'text-red-500';
             }
             if (button.type === 'create' || button.type === 'restore') {
-                return 'text-green-500'
+                return 'text-teal-500'
             }
             if (button.type === 'info') {
-                return 'text-green-500'
+                return 'text-teal-500'
             }
             if (button.type === 'close') {
                 return 'text-gray-500'
