@@ -23,7 +23,7 @@
                 </tr>
                 <tr v-for="user in users" :key="user.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
                     <td class="border-t">
-                        <inertia-link class="px-6 py-4 flex items-center focus:text-green-500" :class="user.deleted_at ? 'text-gray-700 focus:text-gray-500 hover:text-gray-500' : ''" :href="route('users.edit', user.id)">
+                        <inertia-link class="px-6 py-4 flex items-center focus:text-teal-500" :class="user.deleted_at ? 'text-gray-700 focus:text-gray-500 hover:text-gray-500' : ''" :href="route('users.edit', user.id)">
                             {{ user.name }}
                             <icon-base v-if="user.deleted_at" icon-fill="fill-gray-500" classes="ml-2">
                                 <trash />

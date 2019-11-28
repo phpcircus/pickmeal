@@ -10,7 +10,7 @@
             <dialog-modal :title="dialog.title" :text="dialog.text" :buttons="dialog.buttons" />
         </modal-component>
 
-        <modal-component name="restaurantModal" width="80%" :max-width="400"
+        <modal-component name="restaurantModal" width="80%" :max-width="600"
                          :adaptive="true"
                          :delay="250"
                          height="auto"

@@ -45,7 +45,7 @@ export default {
             return this.value ? this.onText : this.offText;
         },
         buttonClasses () {
-            return this.value ? 'bg-green-500' : 'bg-red-500';
+            return this.value ? 'bg-teal-500' : 'bg-red-500';
         },
         checked () {
             return true;

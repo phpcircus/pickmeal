@@ -1,6 +1,6 @@
 <template>
     <label class="file-select">
-        <div class="btn btn-green cursor-pointer leading-tight" :class="additionalClasses">
+        <div class="btn btn-teal cursor-pointer leading-tight" :class="additionalClasses">
             <span v-if="value">Selected File: {{ value.name }}</span>
             <div v-else class="flex">
                 <slot />

@@ -2,20 +2,20 @@
 
 namespace App\Services\Location;
 
-use App\Here\HereApi;
+use App\Location\Here\HereApi;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class AutocompleteLocationService
 {
     use SelfCallingService;
 
-    /** @var \App\Here\HereApi */
+    /** @var \App\Location\Here\HereApi */
     private $api;
 
     /**
      * Construct a new AutocompleteLocationService.
      *
-     * @param  App\Here\HereApi  $api
+     * @param  App\Location\Here\HereApi  $api
      */
     public function __construct(HereApi $api)
     {
