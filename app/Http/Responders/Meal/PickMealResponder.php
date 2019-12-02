@@ -13,6 +13,12 @@ class PickMealResponder extends Responder
      */
     public function respond()
     {
+        if ($this->request->isApi()) {
+            return response()->json([
+                'restaurants' => $this->payload,
+            ], 200);
+        }
+
         $this->request->session()->flash('restaurants', $this->payload);
         $this->request->session()->flash('show_restaurant_modal', true);
 
