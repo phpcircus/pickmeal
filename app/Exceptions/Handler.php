@@ -53,17 +53,39 @@ class Handler extends ExceptionHandler
         $response = parent::render($request, $exception);
 
         if ($exception instanceof InvalidCustomAddress) {
+            if ($request->isApi()) {
+                return response()->json([
+                    'message' => 'Custom address is invalid or incomplete. Please try again.',
+                ], 422);
+            }
+
             flash('warning', 'Custom address is invalid or incomplete. Please try again.');
 
             return redirect()->route('home');
         }
 
         if ($exception instanceof InvalidLocationId) {
+            if ($request->isApi()) {
+                return response()->json([
+                    'message' => 'Unable to determine current location. Please try again.',
+                ], 422);
+            }
+
             flash('warning', 'Unable to determine current location. Please try again.');
             return redirect()->route('home');
         }
 
         if ($exception instanceof ThrottleRequestsException) {
+            if ($request->isApi()) {
+                return response()->json([
+                    'errors' => [
+                        'throttle' => [
+                            'You have exceeded the number of allowed requests. Please wait 1 minute.',
+                        ],
+                    ],
+                ], 422);
+            }
+
             flash('warning', 'You have exceeded the number of allowed requests. Please wait 1 minute.');
             return redirect()->route('home');
         }

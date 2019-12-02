@@ -7,14 +7,6 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-    /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
-     * @var string
-     */
-    protected $controllerNamespace = 'App\Http\Controllers';
 
     /**
      * This namespace is applied to your action routes.
@@ -38,31 +30,17 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+        $this->mapActionWebRoutes();
 
-        $this->mapControllerRoutes();
-
-        $this->mapActionRoutes();
+        $this->mapActionApiRoutes();
     }
 
     /**
-     * Define the "controller" routes for the application.
+     * Define the "action" routes for the web application.
      *
      * These routes all receive session state, CSRF protection, etc.
      */
-    protected function mapControllerRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->controllerNamespace)
-            ->group(base_path('routes/controllers.php'));
-    }
-
-    /**
-     * Define the "action" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     */
-    protected function mapActionRoutes()
+    protected function mapActionWebRoutes()
     {
         Route::middleware('web')
             ->namespace($this->actionNamespace)
@@ -70,15 +48,14 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "api" routes for the application.
+     * Define the "action" routes for the api.
      *
-     * These routes are typically stateless.
+     * These routes do not receive session state, CSRF protection, etc.
      */
-    protected function mapApiRoutes()
+    protected function mapActionApiRoutes()
     {
-        Route::prefix('api')
-            ->middleware('api')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+        Route::middleware('api')
+            ->namespace($this->actionNamespace)
+            ->group(base_path('routes/actions_api.php'));
     }
 }
